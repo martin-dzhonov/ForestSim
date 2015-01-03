@@ -78,6 +78,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="RandomGenerator.cs" />
+    <Compile Include="Season.cs" />
     <Compile Include="WeatherType.cs" />
     <Compile Include="WindowsSize.cs" />
   </ItemGroup>

@@ -95,9 +95,10 @@ namespace ForestSim
             hud.Draw(spriteBatch);
 
             // this being the line that answers your question
-
+            
             spriteBatch.End();
             base.Draw(gameTime);
         }
     }
 }
+ 
