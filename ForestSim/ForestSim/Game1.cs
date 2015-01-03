@@ -18,7 +18,8 @@ namespace ForestSim
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        Climate climate;
+        Hud hud;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -38,7 +39,8 @@ namespace ForestSim
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            climate = new Climate();
+            hud = new Hud();
             base.Initialize();
         }
 
@@ -50,8 +52,8 @@ namespace ForestSim
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
             // TODO: use this.Content to load your game content here
+            hud.Load(Content);
         }
 
         /// <summary>
@@ -74,6 +76,8 @@ namespace ForestSim
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            climate.Update(gameTime);
+            hud.Update(climate);
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -86,9 +90,13 @@ namespace ForestSim
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            hud.Draw(spriteBatch);
 
+            // this being the line that answers your question
+
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
