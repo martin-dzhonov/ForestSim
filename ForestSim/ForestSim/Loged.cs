@@ -43,7 +43,7 @@ namespace ForestSim
 
             for (int i = 0; i < log.Count; i++)
 			{
-                spriteBatch.DrawString(font, log[i], new Vector2(x, y + (i*20)), Color.Red);
+                spriteBatch.DrawString(font, log[i], new Vector2(x, y + ((i+1) * 20)), Color.Red);
 			}
         }
     }

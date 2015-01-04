@@ -37,7 +37,7 @@ namespace ForestSim
             {
                 for (int j = 0; j < tilesCol; j++)
                 {
-                    spriteBatch.Draw(basicTileTexture, new Rectangle(i*TileSize, j*TileSize, 50, 50), Color.White);
+                    spriteBatch.Draw(basicTileTexture, new Rectangle(j*TileSize, i*TileSize, 50, 50), Color.White);
                 }
             }
         }

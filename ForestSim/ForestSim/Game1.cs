@@ -44,15 +44,18 @@ namespace ForestSim
         /// </summary>
         protected override void Initialize()
         {
-            trees = new List<Tree>();
             weather = new Weather();
             hud = new Hud();
-            map = new Map(Constants.MAPWIDTH, Constants.MAPHEIGHT, 30);
-            Tile.Content = Content;
+
+            map = new Map(Constants.MAPHEIGHT, Constants.MAPWIDTH, 30);
+            trees = new List<Tree>();
+            treeMap = new bool[Constants.MAPHEIGHT / Constants.TREESIZE, Constants.MAPWIDTH /   Constants.TREESIZE];         
+
             tree = new AdultTree(500, 500, 50, 50);
             tree.Subscribe(weather);
             tree.Spawned += new EventHandler(this.SpawnSapling);
             trees.Add(tree);
+
             base.Initialize();
         }
 
@@ -129,6 +132,7 @@ namespace ForestSim
             tree.Spawned += new EventHandler(this.SpawnSapling);
             trees.Add(tree);
         }
+
     }
 }
  
