@@ -8,9 +8,9 @@ namespace ForestSim
 {
     public class Weather
     {
-        float dayTimer = 1f;
+        float dayTimer = 0.01f;
 
-        const float DAYTIMER = 1f;
+        const float DAYTIMER = 0.01f;
 
         private int daysPassed = 1;
 
@@ -47,7 +47,7 @@ namespace ForestSim
             
             if (daysPassed % 90 == 0 && seasonChanged == false)
             {
-                this.AdvanceSeason();
+                //this.AdvanceSeason();
                 seasonChanged = true;
             }
         }
@@ -66,7 +66,7 @@ namespace ForestSim
                     seasonMax = 24;
                     break;
                 case Season.Summer:
-                    seasonWeight = 20;
+                    seasonWeight = 21;
                     seasonMin = 11;
                     seasonMax = 40;
                     break;
@@ -104,6 +104,7 @@ namespace ForestSim
                 default:
                     break;
             }
+
 
             int newTemp = this.Tempertature + 12 - RandomGenerator.GetRandomInt(1, seasonWeight + weatherWeight);
 

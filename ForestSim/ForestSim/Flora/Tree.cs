@@ -18,7 +18,7 @@ namespace ForestSim.Flora
 
         protected double growthRate;
 
-        protected int health;
+        protected double health;
 
         private SpriteFont font;
 
@@ -33,6 +33,7 @@ namespace ForestSim.Flora
         public int Size { get; set; }
 
         public double TotalGrowth { get; set; }
+
         public int Counter { get; set; }
         public Tree(int x, int y, int width, int height)
         {
@@ -54,7 +55,6 @@ namespace ForestSim.Flora
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, new Rectangle(this.X, this.Y, this.Width, this.Height), Color.White);
-            spriteBatch.DrawString(font, growthRate.ToString(), new Vector2(150, 150), Color.Red);
         }
 
         public void Subscribe(Weather weather)
@@ -72,13 +72,13 @@ namespace ForestSim.Flora
                     weatherWeight = 0.5;
                     break;
                 case WeatherType.Clear:
-                    weatherWeight = 1;
+                    weatherWeight = 0.75;
                     break;
                 case WeatherType.Rain:
                     weatherWeight = 1;
                     break;
                 case WeatherType.Snow:
-                    weatherWeight = -2;
+                    weatherWeight = -1.5;
                     break;
                 case WeatherType.Storm:
                     weatherWeight = -2;
@@ -91,22 +91,41 @@ namespace ForestSim.Flora
             {
                 temperatureWeight = weather.Tempertature * 0.1;
             }
-            if (weather.Tempertature >= 0 && weather.Tempertature < 35)
+            if (weather.Tempertature >= 0 && weather.Tempertature < 37)
             {
-                temperatureWeight = weather.Tempertature * 0.1;
+                temperatureWeight = weather.Tempertature * 0.075;
             }
-            else if (weather.Tempertature >= 35)
+            else if (weather.Tempertature >= 37)
             {
                 temperatureWeight = weather.Tempertature * (-0.05);
             }
 
+            double seasonWeight = 0.0;
+            switch (weather.Season)
+            {
+                case Season.Spring:
+                    seasonWeight = 0;
+                    break;
+                case Season.Summer:
+                    seasonWeight = 0;
+                    break;
+                case Season.Autumn:
+                    seasonWeight = -2;
+                    break;
+                case Season.Winter:
+                    seasonWeight = -0.75;
+                    break;
+                default:
+                    break;
+            }
+
             this.Counter++;
 
-            this.growthRate = weatherWeight + temperatureWeight;
+            this.growthRate = weatherWeight + temperatureWeight + seasonWeight;
+            this.health += growthRate;
             this.TotalGrowth += growthRate;
             double avgGrowth = TotalGrowth / Counter;
             Loger.SingleLog(avgGrowth.ToString());
         }
-
     }
 }
