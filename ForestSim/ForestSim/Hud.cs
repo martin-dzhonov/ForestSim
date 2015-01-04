@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ForestSim.Utils;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -19,8 +20,8 @@ namespace ForestSim
 
         public Hud()
         {
-            this.Width = 200;
-            this.X = (int)WindowSize.Width - this.Width;
+            this.Width = Constants.WINDOWWIDTH - Constants.MAPWIDTH;
+            this.X =  Constants.MAPWIDTH;
             this.Y = 0;
         }
 
@@ -36,7 +37,7 @@ namespace ForestSim
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(background, new Rectangle(this.X, this.Y, this.Width, (int)WindowSize.Height), Color.White);
+            spriteBatch.Draw(background, new Rectangle(this.X, this.Y, this.Width, Constants.MAPHEIGHT), Color.White);
             
             spriteBatch.DrawString(font, "Season: ", new Vector2(this.X + 10, 10), Color.Red);
             spriteBatch.DrawString(font, climate.Season.ToString(), new Vector2(this.X + 110, 10), Color.Red);

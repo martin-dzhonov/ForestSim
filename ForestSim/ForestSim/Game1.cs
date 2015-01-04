@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using ForestSim.Flora;
+using ForestSim.Utils;
 
 namespace ForestSim
 {
@@ -24,13 +25,14 @@ namespace ForestSim
         Map map;
         Tree tree;
         List<Tree> trees;
+        bool[,] treeMap;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = (int)WindowSize.Width;
-            graphics.PreferredBackBufferHeight = (int)WindowSize.Height;
+            graphics.PreferredBackBufferWidth = Constants.WINDOWWIDTH;
+            graphics.PreferredBackBufferHeight = Constants.WINDOWHEIGHT;
             this.IsMouseVisible = true;
         }
 
@@ -45,7 +47,7 @@ namespace ForestSim
             trees = new List<Tree>();
             weather = new Weather();
             hud = new Hud();
-            map = new Map((int)WindowSize.Width-hud.Width, (int)WindowSize.Height, 30);
+            map = new Map(Constants.MAPWIDTH, Constants.MAPHEIGHT, 30);
             Tile.Content = Content;
             tree = new AdultTree(500, 500, 50, 50);
             tree.Subscribe(weather);
@@ -121,7 +123,7 @@ namespace ForestSim
         private void SpawnSapling(object sender, EventArgs e)
         {
             Tree parent = sender as Tree;
-            Tree tree = new Sapling(parent.X - 50, parent.Y, parent.Width, parent.Height);
+            Tree tree = new AdultTree(parent.X - 50, parent.Y, parent.Width, parent.Height);
             tree.Load(Content);
             tree.Subscribe(weather);
             tree.Spawned += new EventHandler(this.SpawnSapling);

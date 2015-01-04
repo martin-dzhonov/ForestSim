@@ -89,7 +89,6 @@
     <Compile Include="Enum\Season.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="Enum\WeatherType.cs" />
-    <Compile Include="Enum\WindowsSize.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

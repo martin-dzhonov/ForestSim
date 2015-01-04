@@ -57,17 +57,16 @@ namespace ForestSim.Flora
             if (this.dayTimer < 0)
             {
                 this.dayTimer = Constants.DAYLENGHT;
-                this.Age += 1;              
-                this.Size += growthRate * 0.2;
-            }
-
-            if (this.Age % Constants.MONTHLENGHT == 0)
-            {
-                int rnd = RandomGenerator.GetRandomInt(1, 100);
-                if (rnd <= this.spawnRate)
+                this.Age += 1;
+                if (this.Age % Constants.MONTHLENGHT == 0)
                 {
-                    this.OnSpawned(EventArgs.Empty);
+                    int rnd = RandomGenerator.GetRandomInt(1, 100);
+                    if (rnd <= this.spawnRate)
+                    {
+                        this.OnSpawned(EventArgs.Empty);
+                    }
                 }
+                this.Size += growthRate * 0.2;
             }
 
             if (this.Age == Constants.YEARLENGHT)
