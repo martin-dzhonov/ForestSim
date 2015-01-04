@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using ForestSim.Flora;
 
 namespace ForestSim
 {
@@ -20,6 +21,8 @@ namespace ForestSim
         SpriteBatch spriteBatch;
         Climate climate;
         Hud hud;
+        Map map;
+        Tree tree1;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -41,6 +44,9 @@ namespace ForestSim
             // TODO: Add your initialization logic here
             climate = new Climate();
             hud = new Hud();
+            map = new Map((int)WindowSize.Width-hud.Width, (int)WindowSize.Height, 30);
+            Tile.Content = Content;
+            tree1 = new Sapling(10, 10, 50, 50);
             base.Initialize();
         }
 
@@ -52,8 +58,10 @@ namespace ForestSim
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            tree1.Load(Content);
             // TODO: use this.Content to load your game content here
             hud.Load(Content);
+            map.Load(Content);
         }
 
         /// <summary>
@@ -92,9 +100,10 @@ namespace ForestSim
             GraphicsDevice.Clear(Color.CornflowerBlue);
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            hud.Draw(spriteBatch);
 
-            // this being the line that answers your question
+            map.Draw(spriteBatch);
+            hud.Draw(spriteBatch);
+            tree1.Draw(spriteBatch);
             
             spriteBatch.End();
             base.Draw(gameTime);

@@ -7,7 +7,7 @@ namespace ForestSim
 {
     public enum WindowSize
     {
-        Width = 1200,
-        Height = 600
+        Width = 1300,
+        Height = 650
     }
 }

@@ -38,7 +38,7 @@ namespace ForestSim
                 this.UpdateTemperature();
                 this.UpdateWeather();
             }
-            if (daysPassed % 30 == 0 && seasonChanged == false)
+            if (daysPassed % 90 == 0 && seasonChanged == false)
             {
                 this.AdvanceSeason();
                 seasonChanged = true;
@@ -118,14 +118,14 @@ namespace ForestSim
             {
                 case Season.Spring:
                     cloudyWeight = 0.15;
-                    clearWeight = 0.30;
+                    clearWeight = 0.35;
                     rainWeight = 0.35;
-                    snowWeight = 0.5;
+                    snowWeight = 0.0;
                     stormWeight = 0.15;
                     break;
                 case Season.Summer:
                     cloudyWeight = 0.20;
-                    clearWeight = 0.5;
+                    clearWeight = 0.50;
                     rainWeight = 0.15;
                     snowWeight = 0.0;
                     stormWeight = 0.15;
@@ -138,11 +138,11 @@ namespace ForestSim
                     stormWeight = 0.10;
                     break;
                 case Season.Winter:
-                    cloudyWeight = 0.30;
+                    cloudyWeight = 0.35;
                     clearWeight = 0.10;
                     rainWeight = 0.10;
                     snowWeight = 0.45;
-                    stormWeight = 0.05;
+                    stormWeight = 0.00;
                     break;
                 default:
                     break;
