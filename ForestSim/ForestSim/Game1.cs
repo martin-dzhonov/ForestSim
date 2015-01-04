@@ -19,7 +19,7 @@ namespace ForestSim
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Climate climate;
+        Weather weather;
         Hud hud;
         Map map;
         Tree tree1;
@@ -41,12 +41,12 @@ namespace ForestSim
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            climate = new Climate();
+            weather = new Weather();
             hud = new Hud();
             map = new Map((int)WindowSize.Width-hud.Width, (int)WindowSize.Height, 30);
             Tile.Content = Content;
             tree1 = new Sapling(10, 10, 50, 50);
+            tree1.Subscribe(weather);
             base.Initialize();
         }
 
@@ -56,12 +56,12 @@ namespace ForestSim
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
             tree1.Load(Content);
-            // TODO: use this.Content to load your game content here
             hud.Load(Content);
             map.Load(Content);
+            Loger.Load(Content);
         }
 
         /// <summary>
@@ -80,13 +80,11 @@ namespace ForestSim
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            climate.Update(gameTime);
-            hud.Update(climate);
-            // TODO: Add your update logic here
+            weather.Update(gameTime);
+            hud.Update(weather);
 
             base.Update(gameTime);
         }
@@ -98,13 +96,13 @@ namespace ForestSim
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            // TODO: Add your drawing code here
             spriteBatch.Begin();
 
             map.Draw(spriteBatch);
             hud.Draw(spriteBatch);
             tree1.Draw(spriteBatch);
-            
+            Loger.Draw(spriteBatch);
+
             spriteBatch.End();
             base.Draw(gameTime);
         }

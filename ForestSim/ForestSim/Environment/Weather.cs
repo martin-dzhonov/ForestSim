@@ -6,22 +6,28 @@ using System.Text;
 
 namespace ForestSim
 {
-    public class Climate
+    public class Weather
     {
         float dayTimer = 1f;
+
         const float DAYTIMER = 1f;
+
         private int daysPassed = 1;
+
         bool seasonChanged = false;
+
+        public event EventHandler Changed;
+
         public int Tempertature { get; set; }
 
-        public WeatherType Weather { get; set; }
+        public WeatherType CurrentWeather { get; set; }
 
         public Season Season { get; set; }
 
-        public Climate()
+        public Weather()
         {
             this.Tempertature = 10;
-            this.Weather = WeatherType.Cloudy;
+            this.CurrentWeather = WeatherType.Cloudy;
             this.Season = Season.Winter;
         }
 
@@ -38,6 +44,7 @@ namespace ForestSim
                 this.UpdateTemperature();
                 this.UpdateWeather();
             }
+            
             if (daysPassed % 90 == 0 && seasonChanged == false)
             {
                 this.AdvanceSeason();
@@ -76,7 +83,8 @@ namespace ForestSim
                 default:
                     break;
             }
-            switch (this.Weather)
+
+            switch (this.CurrentWeather)
             {
                 case WeatherType.Cloudy:
                     weatherWeight = 1;
@@ -96,15 +104,22 @@ namespace ForestSim
                 default:
                     break;
             }
-            this.Tempertature = this.Tempertature + 12 - RandomGenerator.GetRandomInt(1, seasonWeight + weatherWeight);
-            if (this.Tempertature < seasonMin)
+
+            int newTemp = this.Tempertature + 12 - RandomGenerator.GetRandomInt(1, seasonWeight + weatherWeight);
+
+            if (newTemp < seasonMin)
             {
-                this.Tempertature = seasonMin;
+                newTemp = seasonMin;
             }
-            if (Tempertature > seasonMax)
+            if (newTemp > seasonMax)
             {
-                this.Tempertature = seasonMax;
+                newTemp = seasonMax;
             }
+            if (newTemp != this.Tempertature)
+            {
+                this.OnChanged(EventArgs.Empty);
+            }
+            this.Tempertature = newTemp;
         }
 
         private void UpdateWeather()
@@ -156,9 +171,21 @@ namespace ForestSim
             };
 
             WeatherType weather = (WeatherType)list.ChooseByRandom();
-
-            this.Weather = weather;
+            if (this.CurrentWeather != weather)
+            {
+                this.OnChanged(EventArgs.Empty);
+            }
+            this.CurrentWeather = weather;
         }
+
+        private void OnChanged(EventArgs e)
+        {
+            if (this.Changed != null)
+            {
+                Changed(this, e);
+            }
+        }
+
         private void AdvanceSeason()
         {
             switch (this.Season)

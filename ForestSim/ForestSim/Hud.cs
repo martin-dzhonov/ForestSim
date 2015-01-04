@@ -11,7 +11,7 @@ namespace ForestSim
     public class Hud
     {
         SpriteFont font;
-        Climate climate;
+        Weather climate;
         Texture2D background;
         public int Width { get; set; }
         public int X { get; set; }
@@ -30,7 +30,7 @@ namespace ForestSim
             background = contentManager.Load<Texture2D>("BlackRectangle");
         }
 
-        public void Update(Climate climate)
+        public void Update(Weather climate)
         {
             this.climate = climate;
         }
@@ -42,12 +42,10 @@ namespace ForestSim
             spriteBatch.DrawString(font, climate.Season.ToString(), new Vector2(this.X + 110, 10), Color.Red);
 
             spriteBatch.DrawString(font, "Weather: ", new Vector2(this.X + 10, 50), Color.Red);
-            spriteBatch.DrawString(font, climate.Weather.ToString(), new Vector2(this.X + 110, 50), Color.Red);
+            spriteBatch.DrawString(font, climate.CurrentWeather.ToString(), new Vector2(this.X + 110, 50), Color.Red);
 
             spriteBatch.DrawString(font, "Temp: ", new Vector2(this.X + 10, 90), Color.Red);
             spriteBatch.DrawString(font, climate.Tempertature.ToString() + " C", new Vector2(this.X + 110, 90), Color.Red);
-
-
         }
     }
 }

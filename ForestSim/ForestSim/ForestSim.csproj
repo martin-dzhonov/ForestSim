@@ -72,9 +72,10 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Environment\Climate.cs" />
+    <Compile Include="Environment\Weather.cs" />
     <Compile Include="Flora\Sapling.cs" />
     <Compile Include="Hud.cs" />
+    <Compile Include="Loged.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Flora\Tree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
