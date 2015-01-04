@@ -22,7 +22,8 @@ namespace ForestSim
         Weather weather;
         Hud hud;
         Map map;
-        Tree tree1;
+        Tree tree;
+        List<Tree> trees;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -41,12 +42,15 @@ namespace ForestSim
         /// </summary>
         protected override void Initialize()
         {
+            trees = new List<Tree>();
             weather = new Weather();
             hud = new Hud();
             map = new Map((int)WindowSize.Width-hud.Width, (int)WindowSize.Height, 30);
             Tile.Content = Content;
-            tree1 = new Sapling(10, 10, 50, 50);
-            tree1.Subscribe(weather);
+            tree = new AdultTree(500, 500, 50, 50);
+            tree.Subscribe(weather);
+            tree.Spawned += new EventHandler(this.SpawnSapling);
+            trees.Add(tree);
             base.Initialize();
         }
 
@@ -58,7 +62,7 @@ namespace ForestSim
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            tree1.Load(Content);
+            tree.Load(Content);
             hud.Load(Content);
             map.Load(Content);
             Loger.Load(Content);
@@ -86,6 +90,10 @@ namespace ForestSim
             weather.Update(gameTime);
             hud.Update(weather);
 
+            for (int i = 0; i < trees.Count; i++)
+            {
+                trees[i].Update(gameTime);
+            }
             base.Update(gameTime);
         }
 
@@ -100,11 +108,24 @@ namespace ForestSim
 
             map.Draw(spriteBatch);
             hud.Draw(spriteBatch);
-            tree1.Draw(spriteBatch);
+            for (int i = 0; i < trees.Count; i++)
+            {
+                trees[i].Draw(spriteBatch);
+            }
             Loger.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        private void SpawnSapling(object sender, EventArgs e)
+        {
+            Tree parent = sender as Tree;
+            Tree tree = new Sapling(parent.X - 50, parent.Y, parent.Width, parent.Height);
+            tree.Load(Content);
+            tree.Subscribe(weather);
+            tree.Spawned += new EventHandler(this.SpawnSapling);
+            trees.Add(tree);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ForestSim.Utils;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,11 @@ namespace ForestSim
 {
     public class Weather
     {
-        float dayTimer = 0.01f;
+        private float dayTimer = Constants.DAYLENGHT;
 
-        const float DAYTIMER = 0.01f;
+        private int daysPassed;
 
-        private int daysPassed = 1;
-
-        bool seasonChanged = false;
+        private bool seasonChanged;
 
         public event EventHandler Changed;
 
@@ -38,16 +37,16 @@ namespace ForestSim
             if (dayTimer < 0)
             {
                 this.daysPassed += 1;
-                this.Tempertature += 1;
-                this.dayTimer = DAYTIMER;
+                this.dayTimer = Constants.DAYLENGHT;
                 seasonChanged = false;
                 this.UpdateTemperature();
                 this.UpdateWeather();
+              
             }
             
             if (daysPassed % 90 == 0 && seasonChanged == false)
             {
-                //this.AdvanceSeason();
+                this.AdvanceSeason();
                 seasonChanged = true;
             }
         }

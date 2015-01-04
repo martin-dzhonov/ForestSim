@@ -37,7 +37,7 @@ namespace ForestSim
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(background, new Rectangle(this.X, this.Y, this.Width, (int)WindowSize.Height), Color.White);
-
+            
             spriteBatch.DrawString(font, "Season: ", new Vector2(this.X + 10, 10), Color.Red);
             spriteBatch.DrawString(font, climate.Season.ToString(), new Vector2(this.X + 110, 10), Color.Red);
 

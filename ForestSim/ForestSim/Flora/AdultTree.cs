@@ -1,14 +1,13 @@
-﻿using ForestSim.Flora;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace ForestSim.Flora
 {
-    public class Sapling : Tree
-    {
-        public Sapling(int x, int y, int width, int height)
+   public class AdultTree : Tree
+   {
+        public AdultTree(int x, int y, int width, int height)
         {
             this.textureName = "tree1";
             this.X = x;
@@ -17,7 +16,7 @@ namespace ForestSim.Flora
             this.Height = height;
             this.Health = 100;
             this.growthModifier = 1;
+            this.spawnRate = 20;
         }
-
     }
 }
