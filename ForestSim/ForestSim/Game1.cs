@@ -100,6 +100,11 @@ namespace ForestSim
             for (int i = 0; i < trees.Count; i++)
             {
                 trees[i].Update(gameTime);
+                if (trees[i].Health < -150)
+                {
+                    trees.RemoveAt(i);
+                    i--;
+                }
             }
             base.Update(gameTime);
         }

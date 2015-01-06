@@ -93,7 +93,7 @@ namespace ForestSim.Flora
         {
             spriteBatch.Draw(texture, new Rectangle(this.X, this.Y, this.Width, this.Height), Color.White);
            // spriteBatch.DrawString(font, ((int)this.Size).ToString(), new Vector2(this.X + 20, this.Y), Color.Red);
-           // spriteBatch.DrawString(font, ((int)this.Health).ToString(), new Vector2(this.X + 20, this.Y + 20), Color.Red);
+           spriteBatch.DrawString(font, ((int)this.Health).ToString(), new Vector2(this.X + 20, this.Y + 20), Color.Red);
         }
 
         private void OnSpawned(EventArgs e)
@@ -127,7 +127,7 @@ namespace ForestSim.Flora
                     weatherWeight = 1;
                     break;
                 case WeatherType.Snow:
-                    weatherWeight = -1.5;
+                    weatherWeight = -1.75;
                     break;
                 case WeatherType.Storm:
                     weatherWeight = -2;
@@ -165,7 +165,7 @@ namespace ForestSim.Flora
                     seasonWeight = -2;
                     break;
                 case Season.Winter:
-                    seasonWeight = -0.1;
+                    seasonWeight = -0.5;
                     break;
                 default:
                     break;

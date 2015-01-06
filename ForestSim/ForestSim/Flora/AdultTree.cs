@@ -14,7 +14,7 @@ namespace ForestSim.Flora
             this.Y = y;
             this.Width = width;
             this.Height = height;
-            this.Health = 100;
+            this.Health = RandomGenerator.GetRandomInt(50, 150); ;
             this.growthModifier = 1;
             this.spawnRate = 20;
         }

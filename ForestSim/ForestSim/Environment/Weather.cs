@@ -25,9 +25,9 @@ namespace ForestSim
 
         public Weather()
         {
-            this.Tempertature = 10;
+            this.Tempertature = 25;
             this.CurrentWeather = WeatherType.Cloudy;
-            this.Season = Season.Winter;
+            this.Season = Season.Summer;
         }
 
         public void Update(GameTime gameTime)
@@ -44,7 +44,7 @@ namespace ForestSim
               
             }
             
-            if (daysPassed % 90 == 0 && seasonChanged == false)
+            if (daysPassed % Constants.MONTHLENGHT == 0 && seasonChanged == false)
             {
                 this.AdvanceSeason();
                 seasonChanged = true;
