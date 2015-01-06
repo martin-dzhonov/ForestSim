@@ -92,8 +92,8 @@ namespace ForestSim.Flora
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, new Rectangle(this.X, this.Y, this.Width, this.Height), Color.White);
-            spriteBatch.DrawString(font, ((int)this.Size).ToString(), new Vector2(this.X + 20, this.Y), Color.Red);
-            spriteBatch.DrawString(font, ((int)this.Health).ToString(), new Vector2(this.X + 20, this.Y + 20), Color.Red);
+           // spriteBatch.DrawString(font, ((int)this.Size).ToString(), new Vector2(this.X + 20, this.Y), Color.Red);
+           // spriteBatch.DrawString(font, ((int)this.Health).ToString(), new Vector2(this.X + 20, this.Y + 20), Color.Red);
         }
 
         private void OnSpawned(EventArgs e)
@@ -173,8 +173,6 @@ namespace ForestSim.Flora
 
             double healthModifier = weatherWeight + temperatureWeight + seasonWeight;
             this.Health += healthModifier;
-
-            Loger.SingleLog(growthRate.ToString());
         }
     }
 }

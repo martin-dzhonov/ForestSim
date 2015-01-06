@@ -49,11 +49,13 @@ namespace ForestSim
 
             map = new Map(Constants.MAPHEIGHT, Constants.MAPWIDTH, 30);
             trees = new List<Tree>();
-            treeMap = new bool[Constants.MAPHEIGHT / Constants.TREESIZE, Constants.MAPWIDTH /   Constants.TREESIZE];         
+            treeMap = new bool[Constants.MAPHEIGHT / Constants.TREESIZE, Constants.MAPWIDTH / Constants.TREESIZE];
 
-            tree = new AdultTree(500, 500, 50, 50);
+            this.GenerateTrees();
+            tree = new AdultTree(50, 150, 50, 50);
             tree.Subscribe(weather);
             tree.Spawned += new EventHandler(this.SpawnSapling);
+            this.MarkTreeMap(tree);
             trees.Add(tree);
 
             base.Initialize();
@@ -117,6 +119,7 @@ namespace ForestSim
             {
                 trees[i].Draw(spriteBatch);
             }
+
             Loger.Draw(spriteBatch);
 
             spriteBatch.End();
@@ -126,13 +129,85 @@ namespace ForestSim
         private void SpawnSapling(object sender, EventArgs e)
         {
             Tree parent = sender as Tree;
-            Tree tree = new AdultTree(parent.X - 50, parent.Y, parent.Width, parent.Height);
-            tree.Load(Content);
-            tree.Subscribe(weather);
-            tree.Spawned += new EventHandler(this.SpawnSapling);
-            trees.Add(tree);
+
+            List<int> directionsRow = new List<int>{-1, -1, -1, 0, 0, 1, 1, 1};
+            List<int> directionsCol = new List<int>{-1, 0, 1, -1, 1, -1, 0, 1};
+
+            int parentRow = parent.Y / Constants.TREESIZE;
+            int parentCol = parent.X / Constants.TREESIZE;
+
+            for (int i = 0; i < directionsRow.Count; i++)
+            {
+                int newTreeRow = parentRow + directionsRow[i];
+                int newTreeCol = parentCol + directionsCol[i];
+                if (newTreeRow < 0 || newTreeRow >= treeMap.GetLength(0)
+                    || newTreeCol <0 || newTreeCol >= treeMap.GetLength(1))
+                {
+                    directionsRow.RemoveAt(i);
+                    directionsCol.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            for (int i = 0; i < directionsRow.Count; i++)
+            {
+                int newTreeRow = parentRow + directionsRow[i];
+                int newTreeCol = parentCol + directionsCol[i];
+                if (treeMap[newTreeRow, newTreeCol])
+                {
+                    directionsRow.RemoveAt(i);
+                    directionsCol.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            bool isSpotAvalable = directionsRow.Count > 0;
+
+            if (isSpotAvalable)
+            {
+                int randomDirIndex = RandomGenerator.GetRandomInt(0, directionsRow.Count - 1);
+                int newTreeRow = parentRow + directionsRow[randomDirIndex];
+                int newTreeCol = parentCol + directionsCol[randomDirIndex];
+                int newTreeY = newTreeRow * Constants.TREESIZE;
+                int newTreeX = newTreeCol * Constants.TREESIZE;
+
+                Tree newTree = new AdultTree(newTreeX, newTreeY, parent.Width, parent.Height);
+                newTree.Load(Content);
+
+                newTree.Subscribe(weather);
+                newTree.Spawned += new EventHandler(this.SpawnSapling);
+
+                MarkTreeMap(newTree);
+                trees.Add(newTree);
+            }
+        }
+
+        private void MarkTreeMap(Tree tree)
+        {
+            treeMap[tree.Y / Constants.TREESIZE, tree.X / Constants.TREESIZE] = true;
+        }
+
+        private void GenerateTrees()
+        {
+            for (int i = 0; i < treeMap.GetLength(1); i++)
+            {
+                for (int j = 0; j < treeMap.GetLength(0); j++)
+                {
+                    int treeSpawnChance = 20;
+                    if (RandomGenerator.GetRandomInt(1, 100) < treeSpawnChance)
+                    {
+                        Tree newTree = new AdultTree(i * Constants.TREESIZE, j * Constants.TREESIZE, Constants.TREESIZE, Constants.TREESIZE);
+                        newTree.Load(Content);
+
+                        newTree.Subscribe(weather);
+                        newTree.Spawned += new EventHandler(this.SpawnSapling);
+
+                        MarkTreeMap(newTree);
+                        trees.Add(newTree);
+                    }
+                }
+            }
         }
 
     }
 }
- 
