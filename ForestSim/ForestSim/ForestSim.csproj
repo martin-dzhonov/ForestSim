@@ -74,7 +74,7 @@
   <ItemGroup>
     <Compile Include="Environment\Weather.cs" />
     <Compile Include="Flora\AdultTree.cs" />
-    <Compile Include="Flora\Elder.cs" />
+    <Compile Include="Flora\ElderTree.cs" />
     <Compile Include="Flora\Sapling.cs" />
     <Compile Include="Hud.cs" />
     <Compile Include="Loged.cs" />

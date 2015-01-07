@@ -1,4 +1,5 @@
 ﻿using ForestSim.Flora;
+using ForestSim.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +9,18 @@ namespace ForestSim.Flora
 {
     public class Sapling : Tree
     {
-        public Sapling(int x, int y, int width, int height)
+        public Sapling(int x, int y)
         {
-            this.textureName = "tree1";
+            this.healthyTextureName = "sapling";
+            this.deadTextureName = "saplingDead";
+            this.Width = Constants.TREESIZE;
+            this.Height = Constants.TREESIZE;
             this.X = x;
             this.Y = y;
-            this.Width = width;
-            this.Height = height;
-            this.Health = 100;
-            this.growthModifier = 1;
+            this.Health = RandomGenerator.GetRandomInt(0, 100);
+            this.MaxHealth = 200;
+            this.spawnRate = 0;
+            this.growthAge = Constants.YEARLENGHT * 3;
         }
-
     }
 }

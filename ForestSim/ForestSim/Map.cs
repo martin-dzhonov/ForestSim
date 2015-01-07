@@ -26,7 +26,7 @@ namespace ForestSim
 
         public void Load(ContentManager contentManager)
         {
-            this.basicTileTexture = contentManager.Load<Texture2D>("Tile4");
+            this.basicTileTexture = contentManager.Load<Texture2D>("Tile5");
         }
 
         public void Draw(SpriteBatch spriteBatch)

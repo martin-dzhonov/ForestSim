@@ -9,3 +9,11 @@ C:\Users\Martin\Desktop\GitHub\ForestSim\ForestSim\ForestSim\bin\x86\Debug\Conte
 C:\Users\Martin\Desktop\GitHub\ForestSim\ForestSim\ForestSim\bin\x86\Debug\Content\BlackRectangle.xnb
 C:\Users\Martin\Desktop\GitHub\ForestSim\ForestSim\ForestSim\bin\x86\Debug\Content\Tile4.xnb
 C:\Users\Martin\Desktop\GitHub\ForestSim\ForestSim\ForestSim\bin\x86\Debug\Content\tree1.xnb
+C:\Users\Martin\Desktop\GitHub\ForestSim\ForestSim\ForestSim\bin\x86\Debug\Content\Tile5.xnb
+C:\Users\Martin\Desktop\GitHub\ForestSim\ForestSim\ForestSim\bin\x86\Debug\Content\deadTree.xnb
+C:\Users\Martin\Desktop\GitHub\ForestSim\ForestSim\ForestSim\bin\x86\Debug\Content\adult.xnb
+C:\Users\Martin\Desktop\GitHub\ForestSim\ForestSim\ForestSim\bin\x86\Debug\Content\adultDead.xnb
+C:\Users\Martin\Desktop\GitHub\ForestSim\ForestSim\ForestSim\bin\x86\Debug\Content\elder.xnb
+C:\Users\Martin\Desktop\GitHub\ForestSim\ForestSim\ForestSim\bin\x86\Debug\Content\elderDead.xnb
+C:\Users\Martin\Desktop\GitHub\ForestSim\ForestSim\ForestSim\bin\x86\Debug\Content\sapling.xnb
+C:\Users\Martin\Desktop\GitHub\ForestSim\ForestSim\ForestSim\bin\x86\Debug\Content\saplingDead.xnb

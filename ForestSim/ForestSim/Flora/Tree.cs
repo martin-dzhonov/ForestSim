@@ -13,15 +13,19 @@ namespace ForestSim.Flora
     {
         public EventHandler Spawned;
 
-        protected Texture2D texture;
+        protected Texture2D currentTexture;
 
-        protected string textureName;
+        protected Texture2D healthyTexture;
 
-        protected double growthRate;
+        protected Texture2D deadTexture;
 
-        protected double growthModifier;
+        protected string healthyTextureName;
+
+        protected string deadTextureName;
 
         protected int spawnRate;
+
+        protected int growthAge;
 
         private SpriteFont font;
 
@@ -43,9 +47,15 @@ namespace ForestSim.Flora
 
         public double Health { get; set; }
 
+        public double MaxHealth { get; set; }
+
+        public bool IsDead { get; set; }
+
         public void Load(ContentManager contentManager)
         {
-            this.texture = contentManager.Load<Texture2D>(textureName);
+            this.healthyTexture = contentManager.Load<Texture2D>(healthyTextureName);
+            this.deadTexture = contentManager.Load<Texture2D>(deadTextureName);
+            this.currentTexture = this.healthyTexture;
             font = contentManager.Load<SpriteFont>("HudFont");
         }
 
@@ -54,11 +64,29 @@ namespace ForestSim.Flora
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
             this.dayTimer -= elapsed;
 
+            double growthRate;
+            if (this.Health > 100)
+            {
+                int ageGrowthModifier = this.Age / 100;
+                if (ageGrowthModifier == 0)
+                {
+                    growthRate = (Health / 100);
+                }
+                else 
+                {
+                    growthRate = (Health / 100) / ageGrowthModifier;
+                }
+            }
+            else
+            {
+                growthRate = 0;
+            }
+
             if (this.dayTimer < 0)
             {
                 this.dayTimer = Constants.DAYLENGHT;
                 this.Age += 1;
-                if (this.Age % Constants.MONTHLENGHT == 0)
+                if (this.Age % Constants.MONTHLENGHT == 0 && !this.IsDead)
                 {
                     int rnd = RandomGenerator.GetRandomInt(1, 100);
                     if (rnd <= this.spawnRate)
@@ -69,31 +97,27 @@ namespace ForestSim.Flora
                 this.Size += growthRate * 0.2;
             }
 
-            if (this.Age == Constants.YEARLENGHT)
+            if (this.IsDead)
+            {
+                this.currentTexture = deadTexture;
+            }
+
+            if (this.Age == this.growthAge)
             {
                 this.Grow = true;
             }
 
-            if (this.Health > Constants.TREEMAXHEALTH)
+            if (this.Health > this.MaxHealth)
             {
-                this.Health = Constants.TREEMAXHEALTH;
-            }
-
-            if (this.Health > 100)
-            {
-                this.growthRate = (Health / 100) * this.growthModifier;
-            }
-            else
-            {
-                this.growthRate = 0;
+                this.Health = this.MaxHealth;
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, new Rectangle(this.X, this.Y, this.Width, this.Height), Color.White);
-           // spriteBatch.DrawString(font, ((int)this.Size).ToString(), new Vector2(this.X + 20, this.Y), Color.Red);
-           spriteBatch.DrawString(font, ((int)this.Health).ToString(), new Vector2(this.X + 20, this.Y + 20), Color.Red);
+            spriteBatch.Draw(currentTexture, new Rectangle(this.X, this.Y, this.Width, this.Height), Color.White);
+            // spriteBatch.DrawString(font, ((int)this.Size).ToString(), new Vector2(this.X + 20, this.Y), Color.Red);
+            //spriteBatch.DrawString(font, ((int)this.Health).ToString(), new Vector2(this.X + 20, this.Y + 20), Color.Red);
         }
 
         private void OnSpawned(EventArgs e)
@@ -127,7 +151,7 @@ namespace ForestSim.Flora
                     weatherWeight = 1;
                     break;
                 case WeatherType.Snow:
-                    weatherWeight = -1.75;
+                    weatherWeight = -1.5;
                     break;
                 case WeatherType.Storm:
                     weatherWeight = -2;
@@ -142,11 +166,11 @@ namespace ForestSim.Flora
             {
                 temperatureWeight = weather.Tempertature * 0.1;
             }
-            if (weather.Tempertature >= 0 && weather.Tempertature < 37)
+            if (weather.Tempertature >= 0 && weather.Tempertature < 36)
             {
-                temperatureWeight = weather.Tempertature * 0.06;
+                temperatureWeight = weather.Tempertature * 0.07;
             }
-            else if (weather.Tempertature >= 36)   
+            else if (weather.Tempertature >= 36)
             {
                 temperatureWeight = weather.Tempertature * (-0.05);
             }

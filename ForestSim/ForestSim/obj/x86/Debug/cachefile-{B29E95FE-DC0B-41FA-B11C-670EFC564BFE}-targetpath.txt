@@ -3,3 +3,11 @@ Content\Tile2.xnb
 Content\BlackRectangle.xnb
 Content\Tile4.xnb
 Content\tree1.xnb
+Content\Tile5.xnb
+Content\deadTree.xnb
+Content\adult.xnb
+Content\adultDead.xnb
+Content\elder.xnb
+Content\elderDead.xnb
+Content\sapling.xnb
+Content\saplingDead.xnb

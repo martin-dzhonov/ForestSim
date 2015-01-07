@@ -52,11 +52,11 @@ namespace ForestSim
             treeMap = new bool[Constants.MAPHEIGHT / Constants.TREESIZE, Constants.MAPWIDTH / Constants.TREESIZE];
 
             this.GenerateTrees();
-            tree = new AdultTree(50, 150, 50, 50);
-            tree.Subscribe(weather);
-            tree.Spawned += new EventHandler(this.SpawnSapling);
-            this.MarkTreeMap(tree);
-            trees.Add(tree);
+           //tree = new AdultTree(50, 150, 50, 50);
+           //tree.Subscribe(weather);
+           //tree.Spawned += new EventHandler(this.SpawnSapling);
+           //this.MarkTreeMap(tree);
+           //trees.Add(tree);
 
             base.Initialize();
         }
@@ -69,7 +69,7 @@ namespace ForestSim
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            tree.Load(Content);
+            //tree.Load(Content);
             hud.Load(Content);
             map.Load(Content);
             Loger.Load(Content);
@@ -100,10 +100,19 @@ namespace ForestSim
             for (int i = 0; i < trees.Count; i++)
             {
                 trees[i].Update(gameTime);
+                if (trees[i].Grow)
+                {
+                    if (trees[i] is Sapling)
+                    {
+                        trees[i] = new AdultTree(trees[i]);
+                        trees[i].Load(Content);
+                        trees[i].Subscribe(weather);
+                        trees[i].Spawned += new EventHandler(this.SpawnSapling);
+                    }
+                }
                 if (trees[i].Health < -150)
                 {
-                    trees.RemoveAt(i);
-                    i--;
+                    trees[i].IsDead = true;
                 }
             }
             base.Update(gameTime);
@@ -176,7 +185,7 @@ namespace ForestSim
                 int newTreeY = newTreeRow * Constants.TREESIZE;
                 int newTreeX = newTreeCol * Constants.TREESIZE;
 
-                Tree newTree = new AdultTree(newTreeX, newTreeY, parent.Width, parent.Height);
+                Tree newTree = new Sapling(newTreeX, newTreeY);
                 newTree.Load(Content);
 
                 newTree.Subscribe(weather);
@@ -201,7 +210,7 @@ namespace ForestSim
                     int treeSpawnChance = 20;
                     if (RandomGenerator.GetRandomInt(1, 100) < treeSpawnChance)
                     {
-                        Tree newTree = new AdultTree(i * Constants.TREESIZE, j * Constants.TREESIZE, Constants.TREESIZE, Constants.TREESIZE);
+                        Tree newTree = new AdultTree(i * Constants.TREESIZE, j * Constants.TREESIZE);
                         newTree.Load(Content);
 
                         newTree.Subscribe(weather);
