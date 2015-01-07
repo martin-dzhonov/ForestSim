@@ -11,7 +11,7 @@ namespace ForestSim.Flora
 
         public AdultTree(Tree sapling)
         {
-            this.healthyTextureName = "adult";
+            this.healthyTextureName = "sapling";
             this.deadTextureName = "adultDead";
             this.Width = Constants.TREESIZE;
             this.Height = Constants.TREESIZE;
@@ -20,6 +20,7 @@ namespace ForestSim.Flora
             this.Health = sapling.Health;
             this.MaxHealth = 300;
             this.spawnRate = 15;
+            this.growthAge = Constants.YEARLENGHT * 10;
         }
 
         public AdultTree(int x, int y)
@@ -33,6 +34,8 @@ namespace ForestSim.Flora
             this.Health = RandomGenerator.GetRandomInt(0, 200);
             this.MaxHealth = 300;
             this.spawnRate = 15;
+            this.growthAge = Constants.YEARLENGHT * 10;
+
         }
     }
 }

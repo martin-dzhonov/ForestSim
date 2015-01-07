@@ -52,11 +52,6 @@ namespace ForestSim
             treeMap = new bool[Constants.MAPHEIGHT / Constants.TREESIZE, Constants.MAPWIDTH / Constants.TREESIZE];
 
             this.GenerateTrees();
-           //tree = new AdultTree(50, 150, 50, 50);
-           //tree.Subscribe(weather);
-           //tree.Spawned += new EventHandler(this.SpawnSapling);
-           //this.MarkTreeMap(tree);
-           //trees.Add(tree);
 
             base.Initialize();
         }
@@ -69,7 +64,6 @@ namespace ForestSim
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //tree.Load(Content);
             hud.Load(Content);
             map.Load(Content);
             Loger.Load(Content);
@@ -100,11 +94,18 @@ namespace ForestSim
             for (int i = 0; i < trees.Count; i++)
             {
                 trees[i].Update(gameTime);
-                if (trees[i].Grow)
+                if (trees[i].Grow && !trees[i].IsDead)
                 {
                     if (trees[i] is Sapling)
                     {
                         trees[i] = new AdultTree(trees[i]);
+                        trees[i].Load(Content);
+                        trees[i].Subscribe(weather);
+                        trees[i].Spawned += new EventHandler(this.SpawnSapling);
+                    }
+                    if (trees[i] is AdultTree)
+                    {
+                        trees[i] = new ElderTree(trees[i]);
                         trees[i].Load(Content);
                         trees[i].Subscribe(weather);
                         trees[i].Spawned += new EventHandler(this.SpawnSapling);

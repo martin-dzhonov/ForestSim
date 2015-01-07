@@ -8,7 +8,7 @@ namespace ForestSim.Flora
 {
     public class ElderTree : Tree
     {
-        public ElderTree(AdultTree adultTree)
+        public ElderTree(Tree adultTree)
         {
             this.healthyTextureName = "elder";
             this.deadTextureName = "elderDead";
@@ -19,6 +19,7 @@ namespace ForestSim.Flora
             this.Health = adultTree.Health;
             this.MaxHealth = 400;
             this.spawnRate = 25;
+            this.growthAge = Constants.YEARLENGHT * 20;
         }
 
         public ElderTree(int x, int y)
