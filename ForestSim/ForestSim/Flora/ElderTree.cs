@@ -26,12 +26,14 @@ namespace ForestSim.Flora
         {
             this.healthyTextureName = "elder";
             this.deadTextureName = "elderDead";
-            this.X = x;
-            this.Y = y;
             this.Width = Constants.TREESIZE;
             this.Height = Constants.TREESIZE;
-            this.Health = 100;
+            this.X = x;
+            this.Y = y;
+            this.Health = 200;
+            this.MaxHealth = 400;
             this.spawnRate = 25;
+            this.growthAge = Constants.YEARLENGHT * 20;
         }
     }
 }

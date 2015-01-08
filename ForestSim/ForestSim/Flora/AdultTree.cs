@@ -11,7 +11,7 @@ namespace ForestSim.Flora
 
         public AdultTree(Tree sapling)
         {
-            this.healthyTextureName = "sapling";
+            this.healthyTextureName = "adult";
             this.deadTextureName = "adultDead";
             this.Width = Constants.TREESIZE;
             this.Height = Constants.TREESIZE;

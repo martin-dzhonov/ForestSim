@@ -17,7 +17,7 @@ namespace ForestSim.Flora
             this.Height = Constants.TREESIZE;
             this.X = x;
             this.Y = y;
-            this.Health = RandomGenerator.GetRandomInt(-100, 100);
+            this.Health = RandomGenerator.GetRandomInt(-100, 75);
             this.MaxHealth = RandomGenerator.GetRandomInt(100, 200);
             this.spawnRate = 0;
             this.growthAge = Constants.YEARLENGHT * 3;
