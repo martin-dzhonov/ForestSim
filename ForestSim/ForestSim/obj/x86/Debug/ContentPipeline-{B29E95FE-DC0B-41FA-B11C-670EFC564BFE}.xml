@@ -91,6 +91,15 @@
       <Output>C:\Users\Martin\Desktop\GitHub\ForestSim\ForestSim\ForestSim\bin\x86\Debug\Content\saplingDead.xnb</Output>
       <Time>2015-01-07T12:55:37.7696941+02:00</Time>
     </Item>
+    <Item>
+      <Source>human.png</Source>
+      <Name>human</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Martin\Desktop\GitHub\ForestSim\ForestSim\ForestSim\bin\x86\Debug\Content\human.xnb</Output>
+      <Time>2015-01-10T16:06:26.3556072+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{B29E95FE-DC0B-41FA-B11C-670EFC564BFE}</ContentProjectGUID>

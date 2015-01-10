@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using ForestSim.Flora;
 using ForestSim.Utils;
+using ForestSim.Fauna;
 
 namespace ForestSim
 {
@@ -23,8 +24,8 @@ namespace ForestSim
         Weather weather;
         Hud hud;
         Map map;
-        Tree tree;
         List<Tree> trees;
+        List<Lumberjack> lumberjacks;
         bool[,] treeMap;
         public Game1()
         {
@@ -49,9 +50,9 @@ namespace ForestSim
 
             map = new Map(Constants.MAPHEIGHT, Constants.MAPWIDTH, 30);
             trees = new List<Tree>();
+            lumberjacks = new List<Lumberjack>();
             treeMap = new bool[Constants.MAPHEIGHT / Constants.TREESIZE, Constants.MAPWIDTH / Constants.TREESIZE];
 
-            this.GenerateTrees();
 
             base.Initialize();
         }
@@ -63,7 +64,8 @@ namespace ForestSim
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            this.GenerateTrees();
+            this.GenerateHumans();
             hud.Load(Content);
             map.Load(Content);
             Loger.Load(Content);
@@ -111,10 +113,11 @@ namespace ForestSim
                         trees[i].Spawned += new EventHandler(this.SpawnSapling);
                     }
                 }
-                if (trees[i].Health < -150)
-                {
-                    trees[i].IsDead = true;
-                }
+            }
+
+            for (int i = 0; i < lumberjacks.Count; i++)
+            {
+                lumberjacks[i].Update(gameTime);
             }
             base.Update(gameTime);
         }
@@ -133,6 +136,10 @@ namespace ForestSim
             for (int i = 0; i < trees.Count; i++)
             {
                 trees[i].Draw(spriteBatch);
+            }
+            for (int i = 0; i < lumberjacks.Count; i++)
+            {
+                lumberjacks[i].Draw(spriteBatch);
             }
 
             Loger.Draw(spriteBatch);
@@ -222,6 +229,13 @@ namespace ForestSim
                     }
                 }
             }
+        }
+
+        private void GenerateHumans()
+        {
+            Lumberjack lj = new Lumberjack(500, 500, 40, 40);
+            lj.Load(Content);
+            lumberjacks.Add(lj);
         }
 
     }

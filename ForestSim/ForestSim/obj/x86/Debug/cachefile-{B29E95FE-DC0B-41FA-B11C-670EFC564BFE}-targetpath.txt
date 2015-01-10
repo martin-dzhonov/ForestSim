@@ -8,3 +8,4 @@ Content\elder.xnb
 Content\elderDead.xnb
 Content\sapling.xnb
 Content\saplingDead.xnb
+Content\human.xnb

@@ -64,23 +64,12 @@ namespace ForestSim.Flora
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
             this.dayTimer -= elapsed;
 
-            double growthRate;
+            double growthRate = 0;
             if (this.Health > 100)
             {
-                int ageGrowthModifier = this.Age / 100;
-                if (ageGrowthModifier == 0)
-                {
-                    growthRate = (Health / 100);
-                }
-                else 
-                {
-                    growthRate = (Health / 100) / ageGrowthModifier;
-                }
-            }
-            else
-            {
-                growthRate = 0;
-            }
+                int ageGrowthModifier = (this.Age / 100) + 1;
+                growthRate = (Health / 100) / ageGrowthModifier;
+           }
 
             if (this.dayTimer < 0)
             {
@@ -94,12 +83,10 @@ namespace ForestSim.Flora
                         this.OnSpawned(EventArgs.Empty);
                     }
                 }
-                this.Size += growthRate * 0.2;
-            }
-
-            if (this.IsDead)
-            {
-                this.currentTexture = deadTexture;
+                if (!this.IsDead)
+                {
+                    this.Size += growthRate * 0.2;
+                }
             }
 
             if (this.Age == this.growthAge)
@@ -110,6 +97,12 @@ namespace ForestSim.Flora
             if (this.Health > this.MaxHealth)
             {
                 this.Health = this.MaxHealth;
+            }
+
+            if (this.Health < -150)
+            {
+                this.IsDead = true;
+                this.currentTexture = deadTexture;
             }
         }
 

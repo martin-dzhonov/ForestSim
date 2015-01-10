@@ -73,6 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Environment\Weather.cs" />
+    <Compile Include="Fauna\Lumberjack.cs" />
+    <Compile Include="Fauna\Mammal.cs" />
     <Compile Include="Flora\AdultTree.cs" />
     <Compile Include="Flora\ElderTree.cs" />
     <Compile Include="Flora\Sapling.cs" />
